@@ -1,4 +1,4 @@
-# Module 1 - Communication Fundamentals
+![Screenshot (735)](https://github.com/user-attachments/assets/f7743c48-bde2-45c5-bc4c-3f0d29fba49a)# Module 1 - Communication Fundamentals
 # Module 2 - Evolution of Computer Networks
 
 ### Q1. Consider a case, a folder has multiple files and how would copy it to destination machine path (Try using SCP, cp options in Linux)
@@ -75,4 +75,45 @@ ARP command stands for Address Resolution Protocol which is used to identify the
 When duplicate IPs are configured in a network, it leads to a conflict scenario. This leads to connectivity issues where a packet that is intended to a specific IP will have 2 or more possible destination to send the packet to and it does not know where to send the packet to. This issue commonly arises in the cases of Static IP configuration. This scenario leads to instability in ARP tables and routing issues.
 The solution to this issue is using DHCP for automatic IP configuration or simply restarting the device.
 
-### Q6.
+### Q6. Understand how to access remote system using (VNC viewer, Anydesk, teamviewer and remote desktop connections)
+While all of the above mentioned softwares are used for accessing a remote machine from the host machine, Team Viewer is a popular remote access tool that provides a simple setup and secure connections. By installing the software on both ends(Host and Remote System) and connecting to the remote system using remote system's ID and Password, the session is started. Team Viewer is Cross Platform Compatible and can be supported over various devices and operating systems.
+
+AnyDesk is also another popular remote access software which is lightweight and has encryption. Similar to TeamViewer's installation steps, AnyDesk also connects to the remote machine but with using a numerical code instead of ID and Password. 
+
+### Q7. How to check your default gateway is reachable or not and understand about default gateway.
+In order to check the default gateway of a network, the `ip route` command can be used. With the help of `awk` command, the default gateway is retreived and its connectivity can be checked using the ping command.
+A gateway is a device that acts as a bridge between two different networks. It is the device to which packets are sent to when the destination address is not directly present in the network's routing table. 
+
+![Screenshot (734)](https://github.com/user-attachments/assets/bbdf9644-248f-4bb8-999b-ac1e341a0848)
+
+### Q8. Check iwconfig/ifconfig to understand in detail about network interfaces (check about interface speed, MTU and other parameters).
+The ifconfig command is used to display and configure all network interfaces in a system.But in use, ifconfig command is commonly used to obtain the IP address of the system. In addition to the IP address, it provides us with lot of information.
+
+**MTU :** Stands for Maximum Transmission Unit which is the largest size of a single packet. By default, it is set to 1500(bytes). The MTU value can be changed however it should be set to a optimum level in order to avoid segmentation or overheads.
+
+**FLAGS :** There are other important flags which denote whether is interface is _up or down_,_Supports Broadcast or not_,_Is Running or not_,_Supports Multicast or Not_.
+
+**OTHER ADDRESSES :** The command produces MAC address, IPv6 address and Broadcast Address in addition to the IPv4 address.
+In order to obtain the speed of the interface, the `ethtool interface_name` command is used.
+
+![Screenshot (735)](https://github.com/user-attachments/assets/5851cedc-0bbd-4f9f-a58d-cb40fe5550c5)
+
+### Q9. Log in to your home router's web interface (usually at 192.168.1.1 or 192.168.0.1) and check the connected devices list.
+By logging into the home router's web interface using username and password, various statistics about the network can be studied. The Web Interface provides us with the information about the number of devices connected and the names of those devices. Moreover, the IP address and the bandwidth used by each device can be seen under the statistics tab of the interface.
+
+![Screenshot (715)](https://github.com/user-attachments/assets/17071791-fdf1-4999-aa4e-bb32e15b59a9)
+
+### Q10. Explain how a DHCP server assigns IP addresses to devices in your network.
+DHCP stands for Dynamic Host Configuration Protocol, as the name stands for, it automatically assigns IP addresses to the host systems thereby eliminating the need for Static/Manual IP configuration. Using the DORA proccess, a host is assigned with an IP address.
+**Discover :** The client sends a broadcast message by sending DHCPDISCOVER message to discover the server.
+
+**Offer :** The server once it receives the DHCPDISCOVER message, checks it IP Address table to see if it can accomodate the client and if it can, it sends DHCPOFFER message
+
+**Request :** The client receiving the DHCPOFFER message, chooses one offer and sends a DHCPREQUEST indicating the IP Address it wants.
+
+**Acknowledgement :** After accepting the DHCPREQUEST and assigning the IP Address, the server sends a DHCPACK to acknowledge and confirm assignment of IP.
+
+### Q11. Using a terminal, connect to a remote machine via SSH and telnet.
+SSH stands for Secure Shell which is used for securely accessing and managing a remote device. In the below example, ssh is used in windows machine to access the linux system in the Virtual Box. By accessing the IP address of the linux system, and using the command `ssh <ip_address>`, the windows system can remotely access the linux system post authentication. In order to quit/exit the session, the exit command is used.
+
+![Screenshot (737)](https://github.com/user-attachments/assets/20c170d3-8ad3-491d-9b7a-b9ee200abacb)
