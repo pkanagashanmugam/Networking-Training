@@ -1,4 +1,4 @@
-![Screenshot (735)](https://github.com/user-attachments/assets/f7743c48-bde2-45c5-bc4c-3f0d29fba49a)# Module 1 - Communication Fundamentals
+# Module 1 - Communication Fundamentals
 # Module 2 - Evolution of Computer Networks
 
 ### Q1. Consider a case, a folder has multiple files and how would copy it to destination machine path (Try using SCP, cp options in Linux)
