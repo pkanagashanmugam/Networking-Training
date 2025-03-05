@@ -1,4 +1,4 @@
-![Screenshot (756)](https://github.com/user-attachments/assets/c452b887-3d31-4fb1-8e59-2c2835030b37)# Module 3 - Local Area Network – Layer 2 Protocols and Ethernet
+# Module 3 - Local Area Network – Layer 2 Protocols and Ethernet
 # Module 4 - Switching
 
 
