@@ -81,8 +81,9 @@ The sniffed packets will have similar protocol dissectors for layers 1-3 but wil
 
 ![image](https://github.com/user-attachments/assets/2631847b-ab1e-46c2-8726-5d108e66919d)
 
+
 ### Q3. Configure static IP addresses, modify MAC addresses, and verify network connectivity using ping and ifconfig commands.
-Using the same network configuration used in [Q1](https://github.com/pkanagashanmugam/Networking-Training/blob/Module%203-4.md#q1-simulate-a-small-network-with-switches-and-multiple-devices-use-ping-to-generate-traffic-and-observe-the-mac-address-table-of-the-switch-capture-packets-using-wireshark-to-analyze-ethernet-frames-and-mac-addressing), IP addresses can be statically assigned and the assigned MAC addresses can be modified.
+Using the same network configuration used in [Q1](https://github.com/pkanagashanmugam/Networking-Training/blob/main/Module%203-4.md#q1-simulate-a-small-network-with-switches-and-multiple-devices-use-ping-to-generate-traffic-and-observe-the-mac-address-table-of-the-switch-capture-packets-using-wireshark-to-analyze-ethernet-frames-and-mac-addressing) , IP addresses can be statically assigned and the assigned MAC addresses can be modified.
 The initially assigned MAC addresses are :
 
 ![Screenshot (755)](https://github.com/user-attachments/assets/70aa0e1f-99ca-42b3-9a86-336ab647fc4f)
