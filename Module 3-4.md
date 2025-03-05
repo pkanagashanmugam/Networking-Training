@@ -1,4 +1,4 @@
-# Module 3 - Local Area Network – Layer 2 Protocols and Ethernet
+![Screenshot (756)](https://github.com/user-attachments/assets/c452b887-3d31-4fb1-8e59-2c2835030b37)# Module 3 - Local Area Network – Layer 2 Protocols and Ethernet
 # Module 4 - Switching
 
 
@@ -54,6 +54,7 @@ Using the packets captured during the above  `ping` command, the following can b
 **ETHERNET II :** This protocol dissector provides information such as the Source and Destination MAC address and the version of IP used in the layer above it(Network Layer) and appropriate hex number(0x0800 for IPv4). 
 
 ![image](https://github.com/user-attachments/assets/57f258e5-54b9-483c-abdb-e82d1afbae8b)
+
 As seen in the image, the 7th and 8th bit of the 1st byte of MAC address represents the IG and LG bit.
 The I/G bit is shorthand for Individual/Group which represents whether the message is unicast(if the bit is 0) or multicast(if the bit is 1) and the L/G bit is shorthand for Local/Global which represents whether the address is Globally Unique(if the bit is 0) or Locally Administered(if the bit is 1).
 
@@ -79,3 +80,44 @@ The sniffed packets will have similar protocol dissectors for layers 1-3 but wil
 **HYPERTEXT TRANSFER PROTOCOL :** This protocol dissector contains information specific to HTTP request and response and contains all related headers and information like GET/POST, Content Length, Type of encoding etc.
 
 ![image](https://github.com/user-attachments/assets/2631847b-ab1e-46c2-8726-5d108e66919d)
+
+### Q3. Configure static IP addresses, modify MAC addresses, and verify network connectivity using ping and ifconfig commands.
+Using the same network configuration used in [Q1](https://github.com/pkanagashanmugam/Networking-Training/blob/Module%203-4.md#q1-simulate-a-small-network-with-switches-and-multiple-devices-use-ping-to-generate-traffic-and-observe-the-mac-address-table-of-the-switch-capture-packets-using-wireshark-to-analyze-ethernet-frames-and-mac-addressing), IP addresses can be statically assigned and the assigned MAC addresses can be modified.
+The initially assigned MAC addresses are :
+
+![Screenshot (755)](https://github.com/user-attachments/assets/70aa0e1f-99ca-42b3-9a86-336ab647fc4f)
+
+The MAC address of a system can be changed by modifying the MAC address under _Config_ tab.
+
+![Screenshot (756)](https://github.com/user-attachments/assets/22e0063f-2274-488a-9b76-538be7130609)
+![Screenshot (757)](https://github.com/user-attachments/assets/49de28f2-b742-4faa-9995-8c59d054f8bc)
+
+The modified MAC addresses can be verified by viewing the MAC address table of the switch.
+
+![Screenshot (758)](https://github.com/user-attachments/assets/21136a8a-c498-4cbe-8db1-16c343e203d1)
+
+### Q4. Troubleshoot Ethernet Communication with ping and traceroute using Cisco Packet Tracer. Create a simple LAN setup with two Linux machines connected via a switch. Ping from one machine to the other. If it fails, use ifconfig to ensure the IP addresses are configured correctly. Use traceroute to identify where the packets are being dropped if the ping fails.
+A simple network consisting of two PCs connected to a switch is simulated and IP addresses of the two PCs are statically assigned to 192.168.1.3 and 192.168.1.4 respectively. 
+
+![Screenshot (749)](https://github.com/user-attachments/assets/4f85dff1-2fc7-4be3-8834-b6d475fa3c08)
+![Screenshot (750)](https://github.com/user-attachments/assets/62cb4c5a-717d-4b8b-9fb6-b70cb02bad98)
+
+Since the two available IP addresses are 192.168.1.3 and 192.168.1.4, if we ping to any other IP address, packets will be lost.
+
+![Screenshot (751)](https://github.com/user-attachments/assets/1f045682-339b-4a31-a2a3-1e51f623ba5f)
+
+In order to identify where the packets are dropped, an alternative command to `traceroute` in windows, `tracert` is used.Since there is no PC with the specified IP address, the packets never reach the intended PC.
+
+![Screenshot (752)](https://github.com/user-attachments/assets/ddb3e195-16ab-4700-a1a2-ffd00c7a8d0a)
+
+`ping` and `tracert` command is used to check connectivity between the rightly configured PC(192.168.1.4).
+
+![Screenshot (754)](https://github.com/user-attachments/assets/1bf37307-dfc2-4ab1-b68e-e48601d7e83f)
+
+### Q5. Research the Linux kernel's handling of Ethernet devices and network interfaces. Write a short report on how the Linux kernel supports Ethernet communication .
+
+
+### Q6. Describe how you would configure a basic LAN interface using the ip command in Linux.
+
+
+### Q7. Use Linux to view the MAC address table of a switch (if using a Linux-based network switch). Use the bridge or ip link commands to inspect the MAC table and demonstrate a basic switch's operation.
