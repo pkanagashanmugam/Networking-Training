@@ -116,9 +116,33 @@ In order to identify where the packets are dropped, an alternative command to `t
 ![Screenshot (754)](https://github.com/user-attachments/assets/1bf37307-dfc2-4ab1-b68e-e48601d7e83f)
 
 ### Q5. Research the Linux kernel's handling of Ethernet devices and network interfaces. Write a short report on how the Linux kernel supports Ethernet communication .
+The linux kernel handles Ethernet devices and Network Interfaces using Ethernet Device Drivers. There are multiple linux device drivers for various types of ethernet cards/devices like **Linux kernel driver for Elastic Network Adapter (ENA) family, Altera Triple-Speed Ethernet MAC driver, Linux Base Driver for the Intel(R) PRO/100 Family of Adapters, Linux Base Driver for Intel(R) Ethernet Network Connection** and many more. The Ethernet devices in Linux are managed through the kernel's network device subsystem. The network device is allocated using `alloc_netdev_mqs()` function, registered to the network stack using `register_netdevice()` function and is removed from the network stack using ` unregister_netdev()` function. Using physical layer support, Network Interface Cards and Device Drivers, the linux kernel handles Ethernet Devices and network interfaces.
 
+The network interface copies data to the kernel memory using DMA and triggers an interrupt. Interrupts are divided into Top half(Light weight) and Bottom half(This is where the action of scheduled interrupt is performed). Polling is another way by which the kernel learns the data. On a high level, the kernel with the help of sockets and buffers called socket buffers , find their way through the layers of the network stack inorder to communicate with the network interface
 
 ### Q6. Describe how you would configure a basic LAN interface using the ip command in Linux.
+The `ip` command comes with various options with which a network can be configured. Below are the steps to configure a simple LAN interface using the options of `ip` command:
 
+The below command is used to list all the network interfaces and their configured parameters. The output is similar to that produced by `ipconfig/ifconfig`. 
+```
+ip link show
+```
+In order to see a specific device/interface, `ip link show dev <interface_name>` can be used. 
+To add a device to the list of interfaces and activate it,
+```
+sudo ip addr[ess] add <ip_address> dev <interface_name>
+sudo ip link set <interface_name> up
+```
+The interface has been set up one more additional configuration needs to be done before completion of setup.
+```
+sudo ip route add default via <default_ip_address>
+```
+This is the default gateway through which packets flow from and to the interface. 
+
+The setup can be verified by using the `ip link show` command already mentioned. The route taken by a packet can be seen using the `ip route` command.
 
 ### Q7. Use Linux to view the MAC address table of a switch (if using a Linux-based network switch). Use the bridge or ip link commands to inspect the MAC table and demonstrate a basic switch's operation.
+
+The MAC address table is the forwarding table used by a switch in order to effectively learn and forward packets intended to a host by learning the port number it is connected to. The MAC address table can be learnt using the `bridge link` or `bridge fdb show` command.
+
+The basic operation of a switch is to learn the port numbers to which different hosts and connected to and forward packets only to the intended hosts. Switch operates on layer 2 device and operates only on MAC addresses. It maintains a MAC address table for this purpose and updates the table frequently to stay updated.
