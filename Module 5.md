@@ -68,14 +68,42 @@ The given questions asks us to divide the network into 4 subnets. Therefore, add
 
 **VALID IP ADDRESSES FOR EACH SUBNET :**
 
-| Subnet      | Network Address | Usable IP Range     | 
-| :---:        |    :----:   |          :---: |
-| Header      | Title       | Here's this   |
-| Paragraph   | Text        | And more      |
-
 | Subnet |	Network Address	| Usable IP Range	| Broadcast Address |
 | :---:        |    :----:   |          :---: | :---: |
-|Subnet 1	192.168.1.0/26	192.168.1.1 – 192.168.1.62	192.168.1.63
-|Subnet 2	192.168.1.64/26	192.168.1.65 – 192.168.1.126	192.168.1.127
-|Subnet 3	192.168.1.128/26	192.168.1.129 – 192.168.1.190	192.168.1.191
-|Subnet 4	192.168.1.192/26	192.168.1.193 – 192.168.1.254	192.168.1.255
+|**Subnet 1**	| 192.168.1.0/26	| 192.168.1.1 – 192.168.1.62	| 192.168.1.63 |
+|**Subnet 2**	| 192.168.1.64/26	| 192.168.1.65 – 192.168.1.126	| 192.168.1.127 |
+|**Subnet 3**	| 192.168.1.128/26 |	192.168.1.129 – 192.168.1.190	| 192.168.1.191 |
+|**Subnet 4**	| 192.168.1.192/26 |	192.168.1.193 – 192.168.1.254 |	192.168.1.255 |
+
+The above network can be simulated in Packet Tracer. For sake of simplicity, we have restricted the number of hosts to 3 in each subnet. All the hosts are connected to a switch which is in turn connected to a router. The router should be configured in order to enable packet flow within network.
+
+**ROUTER CONFIGRUATION :** Go inside the CLI of the router and type the below commands in order:
+```
+configure terminal
+interface <interface_name>
+no shutdown
+exit
+```
+Perform the above operations on all connected interfaces.
+
+![Screenshot (772)](https://github.com/user-attachments/assets/0f4536aa-375c-492f-9e0a-43c0f871b605)
+
+**NETWORK :**
+
+![Screenshot (773)](https://github.com/user-attachments/assets/f6de52e0-e45b-4c8c-88d6-a863b64c31de)
+
+**VERIFIYING CONNECTIVITY USING PING :** All the hosts in the network must be configured to their respective IP address in the appropriate range as specified above and the default gateway should by one of the IP address in the usable IP address range. It is the IP address of the router connnected to that particular interface.
+
+![Screenshot (775)](https://github.com/user-attachments/assets/7119831b-1411-4629-a91a-79d07d364b2a)
+
+### Q6. You are given three IP addresses: 10.1.1.1, 172.16.5.10, and 192.168.1.5. Identify the class of each IP address (Class A, B, or C). What is the default subnet mask for each class? Provide the range of IP addresses for each class.
+
+The given IP addresses belong to Classes A,B and C. The detailed information is tabulated below.
+
+| Given IP address |	Class	| IP Address Range Class | Subnet Mask |
+| :---:        |    :----:   |          :---: | :---: |
+| 10.1.1.1 | **Class A** | **1.0.0.0 - 126.255.255.255** | 255.0.0.0|
+| 172.16.5.10 | **Class B** | **128.0.0.0 - 191.255.255.255** | 255.255.0.0|
+| 192.168.1.5 | **Class C** | **192.0.0.0 - 223.255.255.255** | 255.255.255.0|
+
+### Q7. In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet. Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark. What is the source IP address before and after NAT?
