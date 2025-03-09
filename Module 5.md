@@ -107,3 +107,47 @@ The given IP addresses belong to Classes A,B and C. The detailed information is 
 | 192.168.1.5 | **Class C** | **192.0.0.0 - 223.255.255.255** | 255.255.255.0|
 
 ### Q7. In Cisco Packet Tracer, create a small network with multiple devices (e.g., 2 PCs and a router). Use private IP addresses (e.g., 192.168.1.x) on the PCs and configure the router to perform NAT to allow the PCs to access the internet. Test the NAT configuration by pinging an external IP address from the PCs and capture the traffic using Wireshark. What is the source IP address before and after NAT?
+
+A small network is configured by connecting two hosts PCs (with IP addresses 192.168.1.10 and 192.168.1.20) to a switch which is in turn connected to a router which connects the external network, a server (with IP address 200.0.0.2) in this case. Router plays a key role by connecting the private network and public network. It uses Network Address Translation using IP address 192.168.1.1 for the private network and 200.0.0.1 for the public network. So the packets flowing from the host PC will have a private IP address in the range of 192.168.1.x and when it passes through the router, it translates into a public IP 200.0.0.1. 
+
+In order to perform this, the router must be configured by performing the following commands in the CLI of router:
+```
+configure terminal
+
+interface GigabitEthernet0/0
+ip address 192.168.1.1 255.255.255.0
+no shutdown
+ip nat inside
+exit
+
+interface GigabitEthernet0/1
+ip address 200.0.0.1 255.255.0.0
+no shutdown
+ip nat outside
+exit
+
+access-list 1 permit 192.168.1.0 0.0.0.255
+
+ip nat inside source list 1 interface GigabitEthernet0/1 overload
+exit
+```
+
+![Screenshot (776)](https://github.com/user-attachments/assets/92b331e8-41cd-4916-a970-653c43b31877)
+
+Connectivity can be checked using ping command.
+
+![Screenshot (777)](https://github.com/user-attachments/assets/77b6f16a-1247-4409-bb0c-5e1c9c851fbc)
+
+The NAT address translation can viewed by typing `show ip nat translations` in the CLI of router.
+
+![Screenshot (778)](https://github.com/user-attachments/assets/c1545530-6739-485d-a9b0-477e99060b83)
+
+**SNIFFING PACKETS USING PACKET TRACER :**
+
+The packets can be captured/analyzed using the simulation mode of packet tracer. Host PC0 is selected as source and server is selected as destination. The PDU details at the Router will explain the address translation process.The inbound PDU Details contain source IP address as **192.168.1.10** which is the IP of PC0.
+
+![Screenshot (779)](https://github.com/user-attachments/assets/93346f93-ccc8-4d9f-bba4-c718e5f35597)
+
+ But when it passes to the external network, it changes to the IP to a public IP. As seen in the outbound PDU Details, the earlier source IP address is changed from **192.168.1.10** to **200.0.0.1**.
+
+ ![Screenshot (780)](https://github.com/user-attachments/assets/8900f3aa-e805-47cf-974b-7f27bcef63c3)
