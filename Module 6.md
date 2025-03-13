@@ -2,6 +2,17 @@
 
 ### Q1. Capture and analyze ARP packets using Wireshark. Inspect the ARP request and reply frames when your device attempts to find the router's MAC address. Discuss the importance of ARP in packet forwarding.
 
+ARP is the protocol used by hosts to find out MAC address or the physical address of the device. The hosts in a network communicate to other hosts/ external networks using the router so knowing the MAC address of the router is essential. When the host connects to the internet, one of the primary functions it carries out after requesting for IP address (if DHCP server is enabled) is to learn the MAC address of the router. 
+
+As it can be seen, the host machine sends an _ARP request as a broadcast message_ to the hosts in the network. The destination IP address is that of the router (192.168.1.1). 
+
+![image](https://github.com/user-attachments/assets/e126547d-c563-4220-8c5e-e1f169158869)
+
+When this request packet reaches the router, it learns the MAC address of the host which sent the request from the Source MAC Address field and sends back a Unicast Reply. The receiving host learns the router's MAC address using the Source MAC Address field. 
+
+![image](https://github.com/user-attachments/assets/c84840bf-35dd-4d4d-919e-adbc5211f68f)
+
+Thus, ARP Request is always a Broadcast Message whereas ARP Reply is an Unicast Message. ARP plays a vital role in packet forwarding. Since all the packets flow through all 7 layers of the OSI model, when the packet flows through Layer 2, the Source and Destination MAC address is added as the header to the data. ARP, which operates at LAYER 2, plays a vital role in not only allowing the hosts to learn MAC addresses without which packets cannot be sent to other devices, ARP replies allows the switch to learn the hosts that are connected to its interfaces and updates them in the MAC address table.
 
 ### Q2. Manually configure static routes on a router to direct packets to different subnets. Use the ip route command and verify connectivity using ping and traceroute.
 
