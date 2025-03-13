@@ -1,4 +1,4 @@
-# Module 6 - Layer 3 – Session 2
+![image](https://github.com/user-attachments/assets/3fa10efe-6e72-4cd4-a987-c23888109ff5)# Module 6 - Layer 3 – Session 2
 
 ### Q1. Capture and analyze ARP packets using Wireshark. Inspect the ARP request and reply frames when your device attempts to find the router's MAC address. Discuss the importance of ARP in packet forwarding.
 
@@ -67,3 +67,52 @@ When a host tries to communicate to the internet, its address gets translated to
 3. Using IP Addresses and Port Numbers / Port Address Translation : In this case, the router maintains a translation table involving **Private Address, Private Port, External Address, External Port, Transport Protocol**. A combination of Private Port and External Address is used to identify the Private Address. This method works best given that Private Port numbers are unique.
    
 ### Q5. In Cisco Packet Tracer, configure NAT on a router to allow internal devices (192.168.1.x) to access the internet. Test connectivity by pinging an external public IP. Capture the traffic in Wireshark and analyze the source IP before and after NAT translation.
+
+A simple LAN network is setup having IP address in the range of 192.168.1.x. The devices are connected to a router via a switch which acts as the gateway to the internet. There are two servers available - _200.0.0.5_ and _200.0.0.10_ . Based on the choice of IP, the appropriate server is accessed. 
+
+The router is turned on, configured for NAT by using the following commands:
+```
+Router>enable
+Router#configure terminal
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#ip address 192.168.1.1 255.255.255.0
+Router(config-if)#no shutdown
+Router(config-if)#ip nat inside
+Router(config-if)#exit
+
+Router(config)#interface GigabitEthernet0/1
+Router(config-if)#ip address 200.0.0.1 255.255.255.0
+Router(config-if)#no shutdown
+Router(config-if)#ip nat outside
+Router(config-if)#exit
+
+Router(config)#ip access-list standard acl1
+Router(config-std-nacl)#permit 192.168.1.0 0.0.0.255
+Router(config-std-nacl)#exit
+Router(config)#ip nat inside source list acl1 interface GigabitEthernet0/1 overload
+Router(config)#exit
+```
+
+Once the router is configured with NAT settings, we try to access the server using the IP address of the server in the web browser.
+
+![Screenshot (790)](https://github.com/user-attachments/assets/ea9e2754-f577-41fe-bbd0-ff46be0fa0a6)
+
+The connectivity can also be verified using `ping` command. The `tracert` command traces the route taken by the packet from the source to destination IP.
+
+![Screenshot (791)](https://github.com/user-attachments/assets/46f13cba-ce4d-42b6-8c1c-530a2f14664d)
+
+In Packet Tracer, the simulation mode allows us to analyze packets. Using Simple PDU option, we set the source machine as the Laptop with IP 192.168.1.5 and destination as the server with IP 200.0.0.10.
+
+**OUTGOING PACKET AT ROUTER0 :**
+The source IP address will be that of the Laptop hence the Inbound PDU details will have source IP as 192.168.1.5. Since Network Address Translation takes place at the router in order to communicate with the internet, the private IP address is changed to a public IP address. Hence the Outbound PDU Details will have the Source IP replaced to 200.0.0.1.
+
+![Screenshot (792)](https://github.com/user-attachments/assets/77bd56b6-98fb-4158-8e72-16803373771d)
+
+![Screenshot (793)](https://github.com/user-attachments/assets/f9944745-d9b9-4586-91a8-6263a9cf9202)
+
+**INCOMING PACKET AT ROUTER0 :**
+When the reply from the Internet reaches Router0, the public IP needs to be translated back to the private IP in order to reach the host which initiated the communication. For this process, routers maintain Translation Table (as explain above) and this translation table can be viewed by using the command `show ip nat translations` in Router's CLI. The Inbound PDU Details will have a public IP address as its Destination IP. When it comes to Router0, NAT ensures that the destination IP is changed to private IP address so that it reaches the correct host.
+
+![Screenshot (794)](https://github.com/user-attachments/assets/fa3458f3-5364-490d-92ea-27f82069c1be)
+
+![Screenshot (795)](https://github.com/user-attachments/assets/e8191999-713e-42ec-bbb1-1a3e6094ebb8)
