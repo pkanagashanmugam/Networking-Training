@@ -1,4 +1,4 @@
-![image](https://github.com/user-attachments/assets/3fa10efe-6e72-4cd4-a987-c23888109ff5)# Module 6 - Layer 3 – Session 2
+# Module 6 - Layer 3 – Session 2
 
 ### Q1. Capture and analyze ARP packets using Wireshark. Inspect the ARP request and reply frames when your device attempts to find the router's MAC address. Discuss the importance of ARP in packet forwarding.
 
@@ -104,6 +104,7 @@ The connectivity can also be verified using `ping` command. The `tracert` comman
 In Packet Tracer, the simulation mode allows us to analyze packets. Using Simple PDU option, we set the source machine as the Laptop with IP 192.168.1.5 and destination as the server with IP 200.0.0.10.
 
 **OUTGOING PACKET AT ROUTER0 :**
+
 The source IP address will be that of the Laptop hence the Inbound PDU details will have source IP as 192.168.1.5. Since Network Address Translation takes place at the router in order to communicate with the internet, the private IP address is changed to a public IP address. Hence the Outbound PDU Details will have the Source IP replaced to 200.0.0.1.
 
 ![Screenshot (792)](https://github.com/user-attachments/assets/77bd56b6-98fb-4158-8e72-16803373771d)
@@ -111,6 +112,7 @@ The source IP address will be that of the Laptop hence the Inbound PDU details w
 ![Screenshot (793)](https://github.com/user-attachments/assets/f9944745-d9b9-4586-91a8-6263a9cf9202)
 
 **INCOMING PACKET AT ROUTER0 :**
+
 When the reply from the Internet reaches Router0, the public IP needs to be translated back to the private IP in order to reach the host which initiated the communication. For this process, routers maintain Translation Table (as explain above) and this translation table can be viewed by using the command `show ip nat translations` in Router's CLI. The Inbound PDU Details will have a public IP address as its Destination IP. When it comes to Router0, NAT ensures that the destination IP is changed to private IP address so that it reaches the correct host.
 
 ![Screenshot (794)](https://github.com/user-attachments/assets/fa3458f3-5364-490d-92ea-27f82069c1be)
