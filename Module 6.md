@@ -62,8 +62,13 @@ Therefore, dividing the given IP address range into 4 subnets, we can have maxim
 | SUBNET 4 | 10.0.0.192/26 | 10.0.0.193 - 10.0.0.254 | 10.0.0.255 |
 
 **NETWORK :**
+4 subnets are configured with PCs and Switches connecting to Routers. The PCs are assigned IP address according to their corresponding usable IP address range. The first usable IP address is used as the default gateway of the subnet and hence that IP address is assigned to the router interface connecting to that subnet.
 
 ![image](https://github.com/user-attachments/assets/40ebcb71-e287-4443-a43b-c25e97587c31)
+
+The connectivity can be verified by using `ping` and `tracert` commands. And as it can be seen in the output presented by tracert commands that the packet first flows to the default gateway that is the router before flowing to the destination PC.
+
+![image](https://github.com/user-attachments/assets/5adeb322-ea29-4fc2-a881-4f0cb2bb5a59)
 
 ### Q4. You are given three IP addresses: 192.168.10.5, 172.20.15.1, and 8.8.8.8. Identify the class of each IP address. Determine if it is private or public.Explain how NAT would handle a private IP when accessing the internet.
 
