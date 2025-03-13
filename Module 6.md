@@ -41,10 +41,15 @@ The connection can be verified by using `ping` and `tracert` commands.The `trace
 ### Q3. Given a network address of 10.0.0.0/24, divide it into 4 equal subnets. Calculate the new subnet mask. Determine the valid host range for each subnet. Assign IP addresses to devices in Packet Tracer and verify connectivity.
 
 **Given IP Address :** 10.0.0.0
+
 **Given Subnet Mask :** 255.255.255.0
+
 **Number of Subnets Required :** 4
+
 **Number of Bits Required to Represent New Subnet :** 2 (2^2=4)
+
 **Therefore New Subnet Mask :** 255.255.255.192
+
 **Number of Bits Used to Represent Network :** 26
 
 Therefore, dividing the given IP address range into 4 subnets, we can have maximum of 62 usable hosts in each subnet. Valid Range of each subnet is given below:
@@ -55,6 +60,10 @@ Therefore, dividing the given IP address range into 4 subnets, we can have maxim
 | SUBNET 2 | 10.0.0.64/26 | 10.0.0.65 - 10.0.0.126 | 10.0.0.127 |
 | SUBNET 3 | 10.0.0.128/26 | 10.0.0.129 - 10.0.0.190 | 10.0.0.191 |
 | SUBNET 4 | 10.0.0.192/26 | 10.0.0.193 - 10.0.0.254 | 10.0.0.255 |
+
+**NETWORK :**
+
+![image](https://github.com/user-attachments/assets/40ebcb71-e287-4443-a43b-c25e97587c31)
 
 ### Q4. You are given three IP addresses: 192.168.10.5, 172.20.15.1, and 8.8.8.8. Identify the class of each IP address. Determine if it is private or public.Explain how NAT would handle a private IP when accessing the internet.
 
