@@ -16,6 +16,27 @@ Thus, ARP Request is always a Broadcast Message whereas ARP Reply is an Unicast 
 
 ### Q2. Manually configure static routes on a router to direct packets to different subnets. Use the ip route command and verify connectivity using ping and traceroute.
 
+Routing is the process of selecting a path for packets to travel between or withing network(s). There are 2 types of routing that are widely used namely Static Routing and Dynamic Routing. While static routing is performed manually explicitly forwarding packets from one network to another, dynamic routing is performed automatically without the need of the network administer to mention the routes. Static routing can be performed in simple steps but it may not be efficient in large networks having larger number of nodes. 
+
+Two simple LAN connections are setup using PCs,Switches and Routers. Both the routers are connected together. The PCs in LAN 1 are configured with IP addresses 192.168.1.10 and 192.168.1.20 with its default gateway being 192.168.1.1 and PCs in LAN 2 are configured with IP addresses 172.168.1.10 and 172.168.1.20 with their default gateway being 172.168.1.1. 
+
+The PCs and Routers are assigned IP addresses and routers are activated.
+
+Static IP is configured using the following commands:
+```
+#Router0
+ip route 172.168.1.0 255.255.255.0 200.0.0.2
+
+#Router3
+ip route 192.168.1.0 255.255.255.0 200.0.0.1
+```
+
+![Screenshot (789)](https://github.com/user-attachments/assets/5291e7c4-00d6-4a5e-bc05-a4d2763bcd97)
+
+The connection can be verified by using `ping` and `tracert` commands.The `tracert` command shows the path taken by the packet and IP addresses are changed.
+
+![Screenshot (788)](https://github.com/user-attachments/assets/f990370e-33aa-45d0-a3e0-b80550a3baee)
+
 
 ### Q3. Given a network address of 10.0.0.0/24, divide it into 4 equal subnets. Calculate the new subnet mask. Determine the valid host range for each subnet. Assign IP addresses to devices in Packet Tracer and verify connectivity.
 
