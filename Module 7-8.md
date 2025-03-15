@@ -65,6 +65,21 @@ Connectivity is verified by pinging the PCs in same VLAN. If we try to ping the 
 
 
 ### Q5. Change the native VLAN on a trunk port. Test for VLAN mismatches and troubleshoot.
+The Native VLAN on a trunk port is VLAN 1 by default. By changing the Native VLAN of trunk port in Switch 0 of the above configuration, we get a VLAN mismatch when we try to ping PCs in a VLAN.The native VLAN can be changed by using the following commands:
+```
+Switch>enable
+Switch#conf t
+Switch(config)#int GigabitEthernet0/1
+Switch(config-if)#switchport trunk native vlan 99
+```
+When we try to execute the  `ping` command, we can see the VLAN mismatch error in CLI of the switch.
+![image](https://github.com/user-attachments/assets/6dfebb53-91cf-450a-8970-bcac785063a4)
+
+**TROUBLESHOOTING :**
+
+In order to rectify this, we need to bring uniformity in Native VLANs of the trunk port. Since we had changed the Native VLAN to 99 in one of the switches, configuring the same VLAN in other switch will resolve this issue. Performing the same set of commands as mentioned above on Switch 2 and executing the `ping` command, we get:
+
+![image](https://github.com/user-attachments/assets/f371b292-e246-4c58-84d8-0d10d630ba7d)
 
 ### Q6. Configure a management VLAN and assign an IP address for remote access. Test SSH or Telnet access to the switch.
 
