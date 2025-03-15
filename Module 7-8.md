@@ -29,6 +29,40 @@ Using the nslookup command we get the IP address as **142.250.194.164** and conn
 ### Q3. Explore traceroute/tracert for different websites eg:google.com and analyse the parameters in the output and explore different options for traceroute command.
 
 ### Q4. Set up trunk ports between switches and try ping between different VLANs.
+VLAN in Cisco Packet Tracer can be setup by configuring the ports of a switch and logically grouping them into a VLAN. Configuration steps of the switch are given below.Similar configuration steps are carried out to all the switches involved in the network.
+
+```
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 2
+Switch(config-vlan)#name VLAN2
+Switch(config)#vlan 3
+Switch(config-vlan)#name VLAN3
+Switch(config)#vlan 4
+Switch(config-vlan)#name VLAN4
+Switch(config)#int FastEthernet0/3
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 2
+Switch(config)#int FastEthernet0/2
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 3
+Switch(config)#int FastEthernet0/1
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 4
+Switch(config)#int GigabitEthernet0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#switchport trunk allow vlan add 2
+Switch(config-if)#switchport trunk allow vlan add 3
+Switch(config-if)#switchport trunk allow vlan add 4
+```
+
+![image](https://github.com/user-attachments/assets/d065b644-f73f-47ad-a798-104d11649630)
+
+Connectivity is verified by pinging the PCs in same VLAN. If we try to ping the PCs connected in the same LAN but different VLAN, ping fails since the ports of the switches are configured to handle VLAN traffic.
+
+![image](https://github.com/user-attachments/assets/76962161-6ae3-4887-a67b-b6b3deb0a68b)
+
 
 ### Q5. Change the native VLAN on a trunk port. Test for VLAN mismatches and troubleshoot.
 
