@@ -183,6 +183,9 @@ When we try to ping a PC from VLAN2, the request times out whereas when we try t
 ![image](https://github.com/user-attachments/assets/0b942e7f-6a81-4b43-9fda-4ac8738e4bf3)
 
 ### Q12. Create an extended ACL to block specific applications, such as HTTP or FTP traffic. Test the ACL rules by attempting to access blocked services.
+An extended ACL is created to block specific applications like HTTP and FTP using their port numbers and any other ip connection is allowed. In order to verify this Access List, we try to communicate with the host 192.168.2.5 using telnet and a connection refused message returns. If we try to communicate with the same host using ping, execution is successful thus ACL blocks the services successfully.
+![image](https://github.com/user-attachments/assets/c5e0b656-2bf7-4439-80c7-9de44e1e6abc)
+
 
 ### Q13. Try Static NAT, Dynamic NAT and PAT to translate IPs.
 
