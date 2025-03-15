@@ -148,8 +148,39 @@ Communication takes place by finding out the MAC address of the destination PC w
 ![image](https://github.com/user-attachments/assets/72714c7a-92cf-4b80-a598-2e416a2ddf9d)
 
 ### Q10. Implement ACLs to restrict traffic based on source and destination ports. Test rules by simulating legitimate and unauthorized traffic.
+We can block traffic in a network by implementing restrictions on source and destination ports. There are come well known ports like 80 for HTTP,22 for SSH and many more. We can restrict the traffic by configuring the router by executing the following commands:
+```
+Router(config)#ip access-list extended VLAN-ACCESS
+Router(config-ext-nacl)#permit tcp 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255 eq 80
+Router(config-ext-nacl)#permit tcp 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255 eq 22
+Router(config-ext-nacl)#deny ip 192.168.1.0 0.0.0.255 192.168.2.0 0.0.0.255
+Router(config-ext-nacl)#deny ip 192.168.2.0 0.0.0.255 192.168.1.0 0.0.0.255
+Router(config-ext-nacl)#ex
+Router(config)#interface GigabitEthernet0/0.10
+Router(config-subif)#ip access-group VLAN-ACCESS in
+Router(config-subif)#ex
+Router(config)#interface GigabitEthernet0/0.20
+Router(config-subif)#ip access-group VLAN-ACCESS in
+Router(config-subif)#ex
+```
+A Access Control List is created which permits only tcp traffic pertaining to ports 80 and 22 and denies all other ip traffic. The ACL can be verified by using the command `show access-lists` and when we try to ping the PC in two different VLANs, we get Destination Host Unreachable. When the command `show access-lists VLAN-ACCESS`, we find that the denying ip to 192.168.2.0 network has 50 matches.
+
+![image](https://github.com/user-attachments/assets/12c30726-9bc8-44ce-a6db-a23104f6468f)
 
 ### Q11. Configure a standard Access Control List (ACL) on a router to permit traffic from a specific IP range. Test connectivity to verify the ACL is working as intended.
+Access Control Lists can be configured to allow traffic from a specific IP range. By using combination of IP address and wildcard masks, IP can be blocked. 
+```
+Router(config)#access-list 10 permit 192.168.1.0 0.0.0.255
+Router(config)#access-list 10 deny any
+Router(config)#int GigabitEthernet0/0.20
+Router(config-subif)#ip access-group 10 in
+Router(config-subif)#ex
+Router(config)#int GigabitEthernet0/0.10
+Router(config-subif)#ip access-group 10 in
+Router(config-subif)#ex
+```
+When we try to ping a PC from VLAN2, the request times out whereas when we try to ping a PC from the same VLAN it completes successfully.
+![image](https://github.com/user-attachments/assets/0b942e7f-6a81-4b43-9fda-4ac8738e4bf3)
 
 ### Q12. Create an extended ACL to block specific applications, such as HTTP or FTP traffic. Test the ACL rules by attempting to access blocked services.
 
