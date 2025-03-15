@@ -84,10 +84,68 @@ In order to rectify this, we need to bring uniformity in Native VLANs of the tru
 ### Q6. Configure a management VLAN and assign an IP address for remote access. Test SSH or Telnet access to the switch.
 
 ### Q7. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
+Firstly, 2 VLANs namely DATA(VLAN 10) and VOICE(VLAN 20) are created on the switch by using the following commands:
+```
+Switch>en
+Switch#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Switch(config)#vlan 10
+Switch(config-vlan)#name DATA
+Switch(config-vlan)#ex
+Switch(config)#vlan 20
+Switch(config-vlan)#name VOICE
+Switch(config-vlan)#ex
+```
+Then switch is then configured to allow access to connected interfaces to the VLANs using the following commands:
+```
+Switch(config)#int fastEthernet0/1
+Switch(config-if)#switchport access vlan 10
+Switch(config-if)#switchport voice vlan 20
+Switch(config-if)#ex
+Switch(config)#int fastEthernet0/2
+Switch(config-if)#switchport access vlan 10
+```
+Therefore the devices connected in the networked are configured appropriately with their VLANs (either Voice or Data).
+![image](https://github.com/user-attachments/assets/123d76a6-5051-4853-9e32-7bcdfcfe969c)
+PCs in Data VLAN can check their connectivity using the ping command. Since they are connected to the same VLAN, the packets reach the destination PC.
+![image](https://github.com/user-attachments/assets/8eece643-9169-4cbe-9c64-c69552885d18)
+
 
 ### Q8. You configured VLANs 10 and 20 on your switch and assigned ports to each VLAN. However, devices in VLAN 10 cannot communicate with devices in VLAN 20. Troubleshoot the issue.
+A simple LAN setup is simulated and 2 VLANs 10 and 20 are configured on the switch using the VLAN setup commands. Three PCs are configured to each of the VLANs. When a PC pings another PC in the same VLAN, the ping commands completes its execution successfully. However, when a PC in VLAN 10 tries to communicate with a PC in VLAN 20, the ping command fails as the PCs configured in a VLAN will have access to the PCs connected to the PCs connected in the same VLAN i.e Intra VLAN communication is only possible. However Inter VLAN communication can be made possible by using a Router connecting to the switch's Trunk Port thereby facilitating Inter VLAN routing.
+
+![image](https://github.com/user-attachments/assets/689e8fab-9d82-4f1e-a634-0f1fd0df09f8)
+
 
 ### Q9. Try Inter VLAN routing with Router.
+A router is added to the network by connecting to the switch using GigabitEthernet interface. The router is configured to perform Inter VLAN routing using the following configuration commands:
+```
+Router>en
+Router#conf t
+Enter configuration commands, one per line.  End with CNTL/Z.
+Router(config)#interface GigabitEthernet0/0
+Router(config-if)#no shutdown
+Router(config-if)#ex
+Router(config)#interface GigabitEthernet0/0.10
+Router(config-subif)#encapsulation dot1q 10
+Router(config-subif)#ip address 192.168.1.1 255.255.255.0
+Router(config-subif)#ex
+Router(config)#interface GigabitEthernet0/0.20
+Router(config-subif)#encapsulation dot1q 20
+Router(config-subif)#ip address 192.168.2.1 255.255.255.0
+Router(config-subif)#ex
+Router(config)#ex
+```
+Router is connected to the trunk port of the switch. Thus the access of interface connecting the switch and router should be changed to trunk.
+```
+Switch>en
+Switch#conf t
+Switch(config)#int gigabitEthernet0/1
+Switch(config-if)#switchport mode trunk
+Switch(config-if)#ex
+```
+Communication takes place by finding out the MAC address of the destination PC which will not be available in the MAC address table of the switch. So the router broadcasts the ARP request to other VLAN and forwards the reply to the source PC. Then the 2 PCs with the help of router, communicate with each other.
+![image](https://github.com/user-attachments/assets/72714c7a-92cf-4b80-a598-2e416a2ddf9d)
 
 ### Q10. Implement ACLs to restrict traffic based on source and destination ports. Test rules by simulating legitimate and unauthorized traffic.
 
