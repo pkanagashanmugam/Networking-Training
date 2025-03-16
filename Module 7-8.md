@@ -82,6 +82,47 @@ In order to rectify this, we need to bring uniformity in Native VLANs of the tru
 ![image](https://github.com/user-attachments/assets/f371b292-e246-4c58-84d8-0d10d630ba7d)
 
 ### Q6. Configure a management VLAN and assign an IP address for remote access. Test SSH or Telnet access to the switch.
+A Management VLAN is a VLAN that is exclusively setup for network management and administration. Using Management VLAN, we can access the network devices and look into its details. Using remote access methods such as SSH or Telnet, we can access the console of netowrking devices from the PCs in Management VLAN.In this example, a single switch has three VLANs apart from the default VLAN, VLAN 10, VLAN 20 and VLAN 99 which is the Management VLAN. In order to configure a Management VLAN,  we need to setup an ip address for the switch. VLANs 10 and 20 are configured using already mentioned commands.
+
+![image](https://github.com/user-attachments/assets/1d545270-bd02-4e2e-86cc-c208b2a1f4b3)
+
+
+**CONFIGURATION OF VLAN99 :**
+In order to setup a vlan and assign IP address, following commands are used:
+```
+Switch(config)#vlan 99
+Switch(config-vlan)#name MANAGEMENT
+Switch(config-vlan)#ex
+
+Switch(config)#int fastEthernet0/5
+Switch(config-if)#switchport mode access
+Switch(config-if)#switchport access vlan 99
+Switch(config-if)#ex
+
+Switch(config)#interface vlan 99
+Switch(config-if)#ip address 192.168.99.20 255.255.255.0
+Switch(config-if)#no shutdown
+Switch(config-if)#ex
+```
+Thus VLAN 99 is setup and assigned with IP 192.168.99.20. Now we need to enable SSH for the VLAN.
+```
+Switch(config)#host Switch1
+Switch1(config)#ip domain name cisco.com
+Switch1(config)#crypto key generate rsa general-keys modulus 1024
+
+Switch1(config)#line vty 0 15
+Switch1(config-line)#transport output ssh
+Switch1(config-line)#login local
+Switch1(config-line)#do wr
+
+Switch1(config)#enable password pass1234
+Switch1(config)#username admin password admin
+```
+Domain name is given as cisco.com in order to generate keys for SSH and the command `crypto key generate rsa general-keys modulus 1024` generates the keys required for SSH connection. The Virtual Terminal lines (VTY) are setup between lines 0 and 15 to enable remote connection via SSH. Password is setup for the switch which allows to setup higher configuration commands with authentication and remote authentication credentials are setup.
+
+We can access the switch console using the command prompt of the devies configured to VLAN 99. As we can see, the mac address-table of the switch had only an entry for the interface connecting vlan 99 but after executing ping command across the 2 VLANs, the next time we execute `show mac address-table`, we see all the entries connected to the switch. The SSH session can be closed by typing `exit` command.
+
+![image](https://github.com/user-attachments/assets/3ebc1183-4242-43ac-a196-eceefc20eb9a)
 
 ### Q7. You have a Cisco switch and a VoIP phone that needs to be placed in a voice VLAN (VLAN 20). The data for the PC should remain in a separate VLAN (VLAN 10). Configure the switch port to support both voice and data traffic.
 Firstly, 2 VLANs namely DATA(VLAN 10) and VOICE(VLAN 20) are created on the switch by using the following commands:
