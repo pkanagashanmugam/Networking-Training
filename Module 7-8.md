@@ -25,22 +25,46 @@ Using the nslookup command we get the IP address as **142.250.194.164** and conn
 ![image](https://github.com/user-attachments/assets/cc5d33db-1419-4964-8e0d-8c6570b53630)
 
 ### Q2. Use Wireshark to capture and analyze DNS, TCP, UDP traffic and packet header, packet flow, options and flags.
+**DNS :**
+This is wireshark capture was captured while performing nslookup for the previous question. As `nslookup ` command deals with Domain Name System, it creates DNS traffic which can be sniffed using wireshark.
+
+This is a DNS query for the domain name **cisco.com**. As it can be seen, the DNS query has the field query which contains the domain name which we searched for using the nslookup command. UDP is used as the transport protocol as in this case, the speed of retrieval is given importance rather than the accuracy of the connection.
+![image](https://github.com/user-attachments/assets/c73b53b4-5770-439c-b237-32a7f0e99a12)
+The DNS server replies back to the query by sending the address of the hostname. This can be viewed in the DNS protocol dissector under Answers field. 
+![image](https://github.com/user-attachments/assets/e103d866-50d1-4be4-ad83-cdd83a38af98)
+
+**TCP :** TCP is one of the Transport Layer Protocols which ensure reliable connection between the client and the server. This is the capture during HTTP request and TCP packets can be sniffed. 
+
+TCP is known for its reliable connection with a three way handshake. The packets 142,147 and 148 are the three handshakres. As it can be seen in packet number 142, the source ip is my PC and destination IP is the server. The SYN flag is set and the packet is sent to the server. When the server receives this packet, it sends an acknowledgement using the SYN and ACK flags. When the host receives acknowledgement from the server, it sends an acknowledgement to acknowledge this packet from the server.
+![image](https://github.com/user-attachments/assets/4b7641b3-676a-448f-93d3-e362f1d6f360)
+
+**UDP :**
+
+UDP is the other Transport Layer Protocol which is used for its speed but it is not reliable. Its use cases are Video Streaming, Video Conferencing , Gaming and many more. This is a capture during video conferencing in Microsoft Teams.
+
+In the capture, various details like Source IP address, Destination IP address, Source Port Number, Destination Port Number, Sequence Number, Timestamp and many other details can be inspected to get information about the packet. Here the Source IP address can be traced back to a server in Singapore belonging to Microsoft Corporation. The port used 3480 is commonly used for Video/Audio conferencing. 
+![image](https://github.com/user-attachments/assets/428ddfe7-5002-487c-95de-a35c81129997)
 
 ### Q3. Explore traceroute/tracert for different websites eg:google.com and analyse the parameters in the output and explore different options for traceroute command.
+Tracert is the windows version of traceroute command. It helps us to see the route taken by the packet over a network. There are various options that come with `tracert` such as:
 
-**-d :**
+**-d :** The -d option does not allow the hostnames to resolve into ip addresses. This option saves time as it does not resolve hostnames.  
 
 ![image](https://github.com/user-attachments/assets/13ef962d-0134-4cfa-a37c-0308fa6013a0)
 
-**-4 :**
+**-4 :** This option uses the IPv4 addresses. As seen in the above snippet, IPv6 addresses is used by default. This option will use IPv4 address of the hostname.
 
 ![image](https://github.com/user-attachments/assets/60262c25-61f9-4aaf-bea2-7988653f7290)
 
-**-w :**
+**-w :** This option is the time in milliseconds allowed to wait before timeout. 
 
 ![image](https://github.com/user-attachments/assets/0de43890-44c8-418e-a4c5-aa343f02c579)
 
+**-w and -4 :** Combination of options can be used.
+
 ![image](https://github.com/user-attachments/assets/6890a8ca-bde2-4bda-9372-9824d4560d79)
+
+**-h :** This option allows users to specify the maximum number of hops taken by the packet. The default value is 30 and this value can be changed using this option.
 
 ![image](https://github.com/user-attachments/assets/7bb759d8-442c-4c98-8443-3238c3353192)
 
