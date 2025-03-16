@@ -310,3 +310,13 @@ Router(config)#ip nat inside source list 1 interface GigabitEthernet0/1 overload
 ![image](https://github.com/user-attachments/assets/bf3f7c46-f8a1-4ab1-a2d8-691954b5e629)
 
 ### Q14. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with tcp, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.
+IPerf is an open source command line tool used for measuring and testing the network performance. In order to run iperf, we need to download it in our laptops. After extracting the files, we should open the powershell command prompt in the same directory and run the executable file by having the Laptop as server using the command `./iperf3.exe -s`. Downloading an app from Google Play Store and selecting iperf from the available options, we can see the performance of the server by entering the IP address of the server in the search bar of the app.
+![image](https://github.com/user-attachments/assets/0334ae94-32ca-4e20-bdc0-733605221100)
+
+Options like TCP,UDP,Bandwidth size, Test duration time interval can be changed and the server's performance can be seen. To find out the jitter of the server, the -u option can be used and the output can be viewed.
+
+![image](https://github.com/user-attachments/assets/2d7b8261-664e-4d56-a712-7697ba7cf41b)
+
+The same output from the client side can be seen through the App.
+
+![WhatsApp Image 2025-03-16 at 12 40 02](https://github.com/user-attachments/assets/bf3578d0-756f-49d7-8368-3eea9aa4ce11)
