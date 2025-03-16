@@ -230,4 +230,43 @@ An extended ACL is created to block specific applications like HTTP and FTP usin
 
 ### Q13. Try Static NAT, Dynamic NAT and PAT to translate IPs.
 
+**STATIC NAT :**
+
+Static NAT is the most simple method of performing Network Address Translation where in each host PC in a private network gets assigned an IP in the global network. The translations need to be done manually using the `ip nat inside source static <private_ip> <public_ip>`. This is the advantage as well as the drawback using this method. This method cannot be implemented in large networks.
+```
+Router(config)#ip nat inside source static 192.168.1.10 200.0.0.10
+Router(config)#ip nat inside source static 192.168.1.20 200.0.0.20
+```
+![image](https://github.com/user-attachments/assets/561d4174-7913-4b82-925b-d2d928a491a5)
+
+**DYNAMIC NAT :**
+
+Dynamic NAT uses a pool of IP addresses from which PCs are assigned IP. This method ensures that the IP addresses dont get exhausted. If Static NAT was a one-to-one mapping, Dynamic NAT is a Many-to-Many mapping. In order to configure Dynamic NAT , we need to remove the existing Static NAT using the below commands:
+```
+Router(config)#no ip nat inside source static 192.168.1.10 200.0.0.10
+Router(config)#no ip nat inside source static 192.168.1.20 200.0.0.20
+```
+Dynamic NAT can be configured using pool which takes a POOL of IP addresses and assigns IP from that Pool.
+```
+Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)#ip nat pool IP_POOL 200.0.0.5 200.0.0.20 netmask 255.255.255.0
+Router(config)#ip nat inside source list 1 pool IP_POOL
+```
+As we can see, the first time a PC from private network tries to access the internet, it is given a ip of 200.0.0.5 and the second PC is given 200.0.0.6.
+
+![image](https://github.com/user-attachments/assets/e51973fa-6c47-4c57-bbe6-b3e10eef0022)
+
+**PORT ADDRESS TRANSLATION :**
+Port Address Translation method uses ports in addition to IP address to uniquely identify the private PC. This is a Many-to-One Mapping and takes the IP address of the interface which connects the private network to internet. By removing already existent Dynamic NAT, we can configure PAT.
+```
+Router(config)#no ip nat inside source list 1 pool IP_POOL
+```
+PAT is configured using the command `ip nat inside source list <list_number> interface <outside_interface> overload`. Overload is the keyword here which allows PAT.
+```
+Router(config)#access-list 1 permit 192.168.1.0 0.0.0.255
+Router(config)#ip nat inside source list 1 interface Gi
+Router(config)#ip nat inside source list 1 interface GigabitEthernet0/1 overload
+```
+![image](https://github.com/user-attachments/assets/bf3f7c46-f8a1-4ab1-a2d8-691954b5e629)
+
 ### Q14. Download iperf in laptop/phone and make sure they are in same network. Try different iperf commands with tcp, udp, birectional, reverse, multicast, parallel options and analyze the bandwidth and rate of transmission, delay, jitter etc.
